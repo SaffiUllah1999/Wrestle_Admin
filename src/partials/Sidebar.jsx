@@ -1,5 +1,5 @@
 import React from "react";
-import logoImage from "../assets/logo.png"
+import logoImage from "../assets/logo.png";
 import {
   CDBSidebar,
   CDBSidebarContent,
@@ -32,24 +32,23 @@ const Sidebar = () => {
 
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
-            <NavLink exact to="/" activeClassName="activeClicked">
+            <NavLink exact to="/dashboard" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="columns">Dashboard</CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="table">Tables</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem icon="table">Events</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="user">Profile page</CDBSidebarMenuItem>
+            <NavLink exact activeClassName="activeClicked" to="/news">
+              <CDBSidebarMenuItem icon="user">News</CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="chart-line">
-                Analytics
+                Wrestlers
               </CDBSidebarMenuItem>
             </NavLink>
-
-            <NavLink exact target="_blank" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="exclamation-circle">
-                404 page
+            <NavLink exact activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="chart-line">
+                Blogs
               </CDBSidebarMenuItem>
             </NavLink>
           </CDBSidebarMenu>
@@ -60,9 +59,7 @@ const Sidebar = () => {
             style={{
               padding: "20px 5px",
             }}
-          >
-            Sidebar Footer
-          </div>
+          ></div>
         </CDBSidebarFooter>
       </CDBSidebar>
     </div>

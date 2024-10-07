@@ -18,9 +18,9 @@ const Login = () => {
   };
 
   return (
-    <div className={"mainContainer"}>
+    <div className={"mainContainer"} style={{backgroundColor:"#000"}}>
       <div className={"titleContainer"}>
-        <div>Login</div>
+        <div style={{color:"#fff"}}>Login</div>
       </div>
       <br />
       <div className={"inputContainer"}>
@@ -45,6 +45,7 @@ const Login = () => {
       <br />
       <div className={"inputContainer"}>
         <input
+          style={{color:"#fff"}}
           className={"inputButton"}
           type="button"
           onClick={handleSubmit}

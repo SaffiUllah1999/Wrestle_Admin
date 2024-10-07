@@ -8,8 +8,9 @@ import "./charts/ChartjsConfig";
 // Import pages
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
-import Article from "./pages/Article";
-import Products from "./pages/Products";
+// import Article from "./pages/Article";
+// import Products from "./pages/Products";
+import News from "./pages/News";
 
 function App() {
   const location = useLocation();
@@ -32,8 +33,9 @@ function App() {
       <Routes>
         <Route path="*" element={<Login />} />
         <Route path="/dashboard" element={<PrivateRoute element={<Dashboard />} />} />
-        <Route path="/article" element={<PrivateRoute element={<Article />} />} />
-        <Route path="/products" element={<PrivateRoute element={<Products />} />} />
+        <Route path="/news" element={<PrivateRoute element={<News />} />} />
+        {/* <Route path="/article" element={<PrivateRoute element={<Article />} />} />
+        <Route path="/products" element={<PrivateRoute element={<Products />} />} /> */}
         {/* Add any additional routes here */}
       </Routes>
     </AuthProvider>
