@@ -5,10 +5,10 @@ export const SERVICE_ROUTE = {
    DELETE_USER:"/deleteUser/",
    UPDATE_ORDER:"/updateOrderStatus",
    GET_ACTIVE_ORDER:"/getAllActiveOrders",
-   UPLOAD_ARTICLES:"/uploadarticles",
-   GET_ARTICLES:"/getarticles",
-   UPLOAD_PRODUCTS:"/uploadProducts",
-   GET_PRODUCTS:"/getProducts",
+   UPLOAD_ARTICLES:"/adminUploadNews",
+   GET_ARTICLES:"/GetNews",
+   UPLOAD_PRODUCTS:"/adminUploadEvents",
+   GET_PRODUCTS:"/GetEvents",
    DELET_ARTICLE:"/articles/"
 
   };
