@@ -57,7 +57,7 @@ function Dashboard() {
             </div>
 
             {/* Cards */}
-            <div className="grid grid-cols-12 gap-6">
+            <div className="grid grid-cols-20 gap-6">
               {/* Line chart (Real Time Value) */}
 
               {/* Doughnut chart (Top Countries) */}
@@ -68,7 +68,7 @@ function Dashboard() {
             </div>
 
             <div className="grid grid-cols-12" style={{ marginTop: 20 }}>
-              <DashboardCard6 />
+              {/* <DashboardCard6 /> */}
               {/* Line chart (Real Time Value) */}
 
               {/* Doughnut chart (Top Countries) */}

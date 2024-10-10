@@ -4,7 +4,7 @@ import { SERVICE_ROUTE } from "../services/endpoints";
 import { IoIosAddCircle, IoMdClose } from "react-icons/io";
 import Sidebar from "../partials/Sidebar";
 
-export default function News() {
+export default function Blogs() {
   const commonDataService = new CommonDataService();
   const [dataset, setDataset] = useState([]);
   const [loading, setLoading] = useState(false); // Loading state
@@ -35,7 +35,7 @@ export default function News() {
   const Get_Products = () => {
     setLoading(true); // Set loading to true
     commonDataService
-      .fetchData(SERVICE_ROUTE.GET_ARTICLES)
+      .fetchData(SERVICE_ROUTE.GET_BLOGS)
       .then((res) => {
         setDataset(res?.data);
       })
@@ -50,7 +50,7 @@ export default function News() {
   const Add_Article = () => {
     setLoading(true); // Set loading to true
     commonDataService
-      .executeApiCall(SERVICE_ROUTE.UPLOAD_ARTICLES, newArticle)
+      .executeApiCall(SERVICE_ROUTE.UPLOAD_BLOGS, newArticle)
       .then((res) => {
         setDataset((prev) => [...prev, res?.data]);
         setModalOpen(false);
@@ -89,7 +89,7 @@ export default function News() {
 
       <div>
         <header className="px-5 py-4 border-b border-gray-100 flex justify-between items-center">
-          <h2 className="font-semibold">News</h2>
+          <h2 className="font-semibold">Blogs</h2>
           <div className="flex items-center ml-auto">
             {/* Add this div to help align the icon */}
             <IoIosAddCircle
@@ -104,7 +104,7 @@ export default function News() {
         {modalOpen && (
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
             <div className="bg-white p-5 rounded-lg shadow-lg">
-              <h2 className="text-xl mb-4">Add News</h2>
+              <h2 className="text-xl mb-4">Add Blog</h2>
               <input
                 type="text"
                 placeholder="Title"

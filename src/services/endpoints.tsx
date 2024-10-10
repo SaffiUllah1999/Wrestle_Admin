@@ -9,7 +9,11 @@ export const SERVICE_ROUTE = {
    GET_ARTICLES:"/GetNews",
    UPLOAD_PRODUCTS:"/adminUploadEvents",
    GET_PRODUCTS:"/GetEvents",
-   DELET_ARTICLE:"/articles/"
+   DELET_ARTICLE:"/articles/",
+
+   UPLOAD_BLOGS:"/adminUploadBlogs",
+   GET_BLOGS:"/GetBlogs",
+
 
   };
   

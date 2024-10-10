@@ -78,7 +78,7 @@ export default function Events() {
       <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
         <div>
           <header className="px-5 py-4 border-b border-gray-100 flex justify-between items-center">
-            <h2 className="font-semibold">Products</h2>
+            <h2 className="font-semibold">Events</h2>
             <IoIosAddCircle
               className="cursor-pointer"
               onClick={() => setModalOpen(true)}
@@ -90,10 +90,10 @@ export default function Events() {
           {modalOpen && (
             <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
               <div className="bg-white p-5 rounded-lg shadow-lg">
-                <h2 className="text-xl mb-4">Add New Product</h2>
+                <h2 className="text-xl mb-4">Add New Events</h2>
                 <input
                   type="text"
-                  placeholder="Name"
+                  placeholder="Subject"
                   value={newArticle.title}
                   onChange={(e) =>
                     setNewArticle({ ...newArticle, title: e.target.value })
@@ -101,7 +101,7 @@ export default function Events() {
                   className="border p-2 mb-2 w-full"
                 />
                 <textarea
-                  placeholder="Price"
+                  placeholder="Enter Details"
                   value={newArticle.description}
                   onChange={(e) =>
                     setNewArticle({
@@ -135,7 +135,7 @@ export default function Events() {
                     onClick={Add_Article}
                     className="bg-blue-500 hover:bg-blue-700 text-white"
                   >
-                    Add Article
+                    Submit
                   </button>
                 </div>
               </div>
