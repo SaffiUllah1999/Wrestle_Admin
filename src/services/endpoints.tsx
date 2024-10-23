@@ -2,6 +2,7 @@ export const SERVICE_ROUTE = {
    GET_ALL_ORDERS:"/getAllOrders",
    LOGIN:"/adminlogin",
    GET_ALL_USERS:"/getusers",
+   GET_ALL_WRESTLE:"/Wrestlergetusers",
    DELETE_USER:"/deleteUser/",
    UPDATE_ORDER:"/updateOrderStatus",
    GET_ACTIVE_ORDER:"/getAllActiveOrders",

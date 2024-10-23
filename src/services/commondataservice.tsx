@@ -1,8 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-
-
 export const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   timeout: 50000,
@@ -24,7 +22,7 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-export const REACT_APP_API_URL = "http://192.168.5.57:3000"; // FDP Local
+export const REACT_APP_API_URL = "http://192.168.1.122:3000"; // FDP Local
 export default class CommonDataService {
   executeApiCall(path, data) {
     console.log(`${REACT_APP_API_URL}${path}` + JSON.stringify(data));
@@ -36,14 +34,11 @@ export default class CommonDataService {
   executeApiCall_2(path, data) {
     console.log(`${REACT_APP_API_URL}${path}` + JSON.stringify(data));
     return axiosInstance
-      .delete(`${REACT_APP_API_URL}${path}`+ data)
+      .delete(`${REACT_APP_API_URL}${path}` + data)
       .then((res) => res);
   }
 
-
-  
-
-  removeCall(path,id) {
+  removeCall(path, id) {
     return axiosInstance
       .delete(`${REACT_APP_API_URL}${path}${id}`)
       .then((res) => res);
@@ -55,12 +50,12 @@ export default class CommonDataService {
 
   fetchData_2(path, data) {
     return axiosInstance
-    .get(`${REACT_APP_API_URL}${path}`,data)
-    .then((res) => res);
+      .get(`${REACT_APP_API_URL}${path}`, data)
+      .then((res) => res);
   }
   fetchData_3(path, data) {
     return axiosInstance
-    .get(`${REACT_APP_API_URL}${path}`,{ params: data })
-    .then((res) => res);
+      .get(`${REACT_APP_API_URL}${path}`, { params: data })
+      .then((res) => res);
   }
 }
