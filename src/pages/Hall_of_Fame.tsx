@@ -5,16 +5,17 @@ import CommonDataService from "../services/commondataservice";
 import { SERVICE_ROUTE } from "../services/endpoints";
 import { IoIosAddCircle, IoMdClose } from "react-icons/io";
 
-export default function Events() {
+export default function Hall_of_Fame() {
   const commonDataService = new CommonDataService();
   const [dataset, setDataset] = useState([]);
   const fileInputRef = useRef(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [newArticle, setNewArticle] = useState({
-    title: "",
+    name: "",
     description: "",
     image: "",
-    seats: 0
+    weight: "",
+    success_rate: "",
   });
 
   const handleImageUpload = (event) => {
@@ -34,7 +35,7 @@ export default function Events() {
 
   const Get_Products = () => {
     commonDataService
-      .fetchData(SERVICE_ROUTE.GET_PRODUCTS)
+      .fetchData(SERVICE_ROUTE.GET_HALL_FAME)
       .then((res) => {
         setDataset(res?.data);
       })
@@ -45,11 +46,17 @@ export default function Events() {
 
   const Add_Article = () => {
     commonDataService
-      .executeApiCall(SERVICE_ROUTE.UPLOAD_PRODUCTS, newArticle)
+      .executeApiCall(SERVICE_ROUTE.UPLOAD_HALL_FAME, newArticle)
       .then((res) => {
         setDataset((prev) => [...prev, res?.data]);
         setModalOpen(false);
-        setNewArticle({ title: "", description: "", image: "" });
+        setNewArticle({
+          name: "",
+          description: "",
+          image: "",
+          weight: "",
+          success_rate: "",
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -79,7 +86,7 @@ export default function Events() {
       <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
         <div>
           <header className="px-5 py-4 border-b border-gray-100 flex justify-between items-center">
-            <h2 className="font-semibold">Events</h2>
+            <h2 className="font-semibold">Hall Of Fame</h2>
             <IoIosAddCircle
               className="cursor-pointer"
               onClick={() => setModalOpen(true)}
@@ -91,33 +98,33 @@ export default function Events() {
           {modalOpen && (
             <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
               <div className="bg-white p-5 rounded-lg shadow-lg">
-                <h2 className="text-xl mb-4">Add New Events</h2>
+                <h2 className="text-xl mb-4">
+                  Add New Wrestler To HOF(Hall of Fame)
+                </h2>
                 <input
                   type="text"
-                  placeholder="Subject"
-                  value={newArticle.title}
+                  placeholder="Enter Name"
+                  value={newArticle.name}
                   onChange={(e) =>
-                    setNewArticle({ ...newArticle, title: e.target.value })
+                    setNewArticle({ ...newArticle, name: e.target.value })
                   }
                   className="border p-2 mb-2 w-full"
                 />
-                  <input
+                <input
                   type="text"
-                  placeholder="No of Seats"
-                  value={newArticle.seats?.toString()}
+                  placeholder="Enter Weight"
+                  value={newArticle.weight}
                   onChange={(e) =>
-                    setNewArticle({ ...newArticle, seats: parseFloat(e.target.value) })
+                    setNewArticle({ ...newArticle, weight: e.target.value })
                   }
                   className="border p-2 mb-2 w-full"
                 />
-                <textarea
-                  placeholder="Enter Details"
-                  value={newArticle.description}
+                   <input
+                  type="text"
+                  placeholder="Enter Success rate"
+                  value={newArticle.success_rate}
                   onChange={(e) =>
-                    setNewArticle({
-                      ...newArticle,
-                      description: e.target.value,
-                    })
+                    setNewArticle({ ...newArticle, success_rate: e.target.value })
                   }
                   className="border p-2 mb-2 w-full"
                 />
@@ -167,8 +174,8 @@ export default function Events() {
                       />
                     </div>
                     <div>{"Product id: " + article?._id}</div>
-                    <div>{"Name: " + article?.title}</div>
-                    <div>{"Description: " + article?.description}</div>
+                    <div>{"Name: " + article?.name}</div>
+                    <div>{"Weight: " + article?.weight}</div>
                     <img
                       style={{ height: 100, width: 100 }}
                       src={article?.image}

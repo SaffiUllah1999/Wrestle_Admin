@@ -11,7 +11,9 @@ export const SERVICE_ROUTE = {
    UPLOAD_PRODUCTS:"/adminUploadEvents",
    GET_PRODUCTS:"/GetEvents",
    DELET_ARTICLE:"/articles/",
-
+   
+   UPLOAD_HALL_FAME:"/adminUploadWrestlersHallFame",
+   GET_HALL_FAME:"/GetHallFame",
    UPLOAD_BLOGS:"/adminUploadBlogs",
    GET_BLOGS:"/GetBlogs",
 

@@ -51,6 +51,11 @@ const Sidebar = () => {
                 Blogs
               </CDBSidebarMenuItem>
             </NavLink>
+            <NavLink exact activeClassName="activeClicked" to="/hallfame">
+              <CDBSidebarMenuItem icon="chart-line">
+                Hall of Fame
+              </CDBSidebarMenuItem>
+            </NavLink>
           </CDBSidebarMenu>
         </CDBSidebarContent>
 
