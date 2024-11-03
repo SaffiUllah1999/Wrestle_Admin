@@ -17,6 +17,12 @@ export const SERVICE_ROUTE = {
    UPLOAD_BLOGS:"/adminUploadBlogs",
    GET_BLOGS:"/GetBlogs",
 
+   UPDATE_USER_STATUS:"/adminUpdateUserStatus",
+   DELETE_WRESTLE_USER:"/adminDeleteWrestler",
+
+   UPDATE_EVENT_WRESTLE1:"/adminUpdateWrestler1",
+   UPDATE_EVENT_WRESTLE2:"/adminUpdateWrestler2",
+
 
   };
   

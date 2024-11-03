@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import Sidebar from "../partials/Sidebar";
-import Product_1 from "../partials/products/Product_1";
 import CommonDataService from "../services/commondataservice";
 import { SERVICE_ROUTE } from "../services/endpoints";
-import { IoIosAddCircle, IoMdClose } from "react-icons/io";
+import { IoIosAddCircle, IoMdTrash } from "react-icons/io"; // Import the trash icon
+import { IoChevronForward } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 export default function Events() {
+  const navigate = useNavigate();
   const commonDataService = new CommonDataService();
   const [dataset, setDataset] = useState([]);
   const fileInputRef = useRef(null);
@@ -14,8 +16,10 @@ export default function Events() {
     title: "",
     description: "",
     image: "",
-    seats: 0
+    seats: 0,
+    venue: "",
   });
+  const [loading, setLoading] = useState(false); // Loading state
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -33,6 +37,7 @@ export default function Events() {
   };
 
   const Get_Products = () => {
+    setLoading(true); // Start loading
     commonDataService
       .fetchData(SERVICE_ROUTE.GET_PRODUCTS)
       .then((res) => {
@@ -40,23 +45,38 @@ export default function Events() {
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setLoading(false); // Stop loading
       });
   };
 
   const Add_Article = () => {
+    setLoading(true); // Start loading
     commonDataService
       .executeApiCall(SERVICE_ROUTE.UPLOAD_PRODUCTS, newArticle)
       .then((res) => {
         setDataset((prev) => [...prev, res?.data]);
         setModalOpen(false);
-        setNewArticle({ title: "", description: "", image: "" });
+        setNewArticle({
+          title: "",
+          description: "",
+          image: "",
+          venue: "",
+          seats: 0,
+        });
+        Get_Products(); // Refresh dataset
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setLoading(false); // Stop loading
       });
   };
 
   const Del_Call = (id) => {
+    setLoading(true); // Start loading
     commonDataService
       .removeCall(`/articles/`, id) // Call the DELETE endpoint
       .then(() => {
@@ -65,6 +85,9 @@ export default function Events() {
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setLoading(false); // Stop loading
       });
   };
 
@@ -87,32 +110,53 @@ export default function Events() {
             />
           </header>
 
+          {/* Loading Indicator */}
+          {loading && (
+            <div className="flex justify-center items-center h-full">
+              <p>Loading...</p> {/* You can replace this with a spinner */}
+            </div>
+          )}
+
           {/* Modal */}
           {modalOpen && (
             <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-              <div className="bg-white p-5 rounded-lg shadow-lg">
+              <div
+                className="bg-white p-5 rounded-lg shadow-lg"
+                style={{ width: "500px" }}
+              >
                 <h2 className="text-xl mb-4">Add New Events</h2>
                 <input
                   type="text"
                   placeholder="Subject"
-                  value={newArticle.title}
                   onChange={(e) =>
                     setNewArticle({ ...newArticle, title: e.target.value })
                   }
                   className="border p-2 mb-2 w-full"
                 />
-                  <input
+                <input
                   type="text"
                   placeholder="No of Seats"
-                  value={newArticle.seats?.toString()}
                   onChange={(e) =>
-                    setNewArticle({ ...newArticle, seats: parseFloat(e.target.value) })
+                    setNewArticle({
+                      ...newArticle,
+                      seats: parseFloat(e.target.value),
+                    })
+                  }
+                  className="border p-2 mb-2 w-full"
+                />
+                <input
+                  type="text"
+                  placeholder="Venue"
+                  onChange={(e) =>
+                    setNewArticle({
+                      ...newArticle,
+                      venue: e.target.value,
+                    })
                   }
                   className="border p-2 mb-2 w-full"
                 />
                 <textarea
                   placeholder="Enter Details"
-                  value={newArticle.description}
                   onChange={(e) =>
                     setNewArticle({
                       ...newArticle,
@@ -152,23 +196,29 @@ export default function Events() {
             </div>
           )}
 
-          <div className="p-3">
+          <div style={{width:"100%"}}>
             <div>
               <tbody>
-                {dataset?.map((article, index) => (
+                {dataset?.map((article) => (
                   <div
                     key={article._id}
                     className="bg-white shadow-sm rounded-xl p-3 my-2"
+                    onClick={()=>navigate("/EventDetails", { state: { dataset: article } })}
                   >
                     <div className="flex justify-between items-center">
-                      <IoMdClose
-                        className="cursor-pointer text-red-600"
-                        onClick={() => Del_Call(article._id)} // Call delete on click
+                      <div className="flex-grow">
+                        {/* Allow the text to grow */}
+                        <div>{"Product id: " + article?._id}</div>
+                        <div>{"Name: " + article?.title}</div>
+                        <div>{"Description: " + article?.description}</div>
+                        <div>{"Seats : " + article?.seats}</div>
+                      </div>
+                      <IoChevronForward
+                        className="cursor-pointer text-red-600 ml-5" // Add margin for spacing
+                        // onClick={() => Del_Call(article?._id)} // Call delete on click
+                       
                       />
                     </div>
-                    <div>{"Product id: " + article?._id}</div>
-                    <div>{"Name: " + article?.title}</div>
-                    <div>{"Description: " + article?.description}</div>
                     <img
                       style={{ height: 100, width: 100 }}
                       src={article?.image}

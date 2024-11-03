@@ -6,8 +6,7 @@ import { SERVICE_ROUTE } from "../../services/endpoints";
 function WrestleUsersComp() {
   const [users, setUsers] = useState([]); // State for users
   const [loading, setLoading] = useState(true); // State for loading
-  const commonDataService = new CommonDataService()
-
+  const commonDataService = new CommonDataService();
 
   // const fetchData = async () => {
   //   try {
@@ -20,17 +19,41 @@ function WrestleUsersComp() {
   //   }
   // };
 
-  const fetchData = async() => {
+  const fetchData = async () => {
     await commonDataService
       .fetchData(SERVICE_ROUTE.GET_ALL_WRESTLE)
       .then((res) => {
-        console.log(res?.data)
-        setUsers(res.data); 
+        console.log(res?.data);
+        setUsers(res.data);
         setLoading(false);
       })
       .catch((error) => {
         console.log(error);
         setLoading(false);
+      });
+  };
+
+  const Update_User_Status = (email, status) => {
+    commonDataService
+      .executeApiCall(SERVICE_ROUTE.UPDATE_USER_STATUS, { email, status })
+      .then((res) => {
+        setDataset((prev) => [...prev, res?.data]);
+        setModalOpen(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const Delete_Wrestler_User = (email) => {
+    commonDataService
+      .executeApiCall(SERVICE_ROUTE.DELETE_WRESTLE_USER, { email })
+      .then((res) => {
+        setDataset((prev) => [...prev, res?.data]);
+        setModalOpen(false);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 
@@ -43,11 +66,11 @@ function WrestleUsersComp() {
   //   }
   // };
 
-  const deleteUser = async(id) => {
+  const deleteUser = async (id) => {
     await commonDataService
       .removeCall(SERVICE_ROUTE.DELETE_USER, id)
       .then((res) => {
-        setUsers(res.data); 
+        setUsers(res.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -65,7 +88,9 @@ function WrestleUsersComp() {
   return (
     <div className="col-span-full xl:col-span-6 bg-white dark:bg-gray-800 shadow-sm rounded-xl">
       <header className="px-5 py-4 border-b border-gray-100 dark:border-gray-700/60">
-        <h2 className="font-semibold text-gray-800 dark:text-gray-100">All Wrestlers</h2>
+        <h2 className="font-semibold text-gray-800 dark:text-gray-100">
+          All Wrestlers
+        </h2>
       </header>
       <div className="p-3">
         <div className="overflow-x-auto">
@@ -74,9 +99,6 @@ function WrestleUsersComp() {
               <tr>
                 <th className="p-2">
                   <div className="font-semibold text-left">Email</div>
-                </th>
-                <th className="p-2">
-                  <div className="font-semibold text-center">Score</div>
                 </th>
                 <th className="p-2">
                   <div className="font-semibold text-center">Name</div>
@@ -90,20 +112,63 @@ function WrestleUsersComp() {
               {users.map((user) => (
                 <tr key={user._id}>
                   <td className="p-2">
-                    <div className="text-gray-800 dark:text-gray-100">{user.email}</div>
-                  </td>
-                  <td className="p-2 text-center">
-                    <div className={user.Score > 0 ? "text-green-500" : "text-red-500"}>
-                      {user.Score || 0}
+                    <div className="text-gray-800 dark:text-gray-100">
+                      {user.email}
                     </div>
                   </td>
                   <td className="p-2 text-center">
-                    <div className="text-gray-800 dark:text-gray-100">{user.name || "N/A"}</div>
+                    <div className="text-gray-800 dark:text-gray-100">
+                      {user.name || "N/A"}
+                    </div>
                   </td>
                   <td className="p-2 text-center">
-                    <button onClick={() => deleteUser(user._id)} className="text-red-500">
-                      Delete
-                    </button>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div
+                        style={{
+                          backgroundColor: "#FF0000",
+                          borderRadius: "10px",
+                          width: "20%",
+                          marginRight: "20px",
+                        }}
+                      ></div>
+                      <div
+                        style={{
+                          backgroundColor: "#FF0000",
+                          borderRadius: "5px",
+                          width: "30%",
+                          marginRight: "20px",
+                        }}
+                      >
+                        <button
+                          style={{ color: "#fff" }}
+                          onClick={() => Delete_Wrestler_User(user.email)}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                      {user.profileStatus === "1" ? null : (
+                        <div
+                          style={{
+                            backgroundColor: "#008000",
+                            width: "30%",
+                            borderRadius: "5px",
+                          }}
+                        >
+                          <button
+                            onClick={() => Update_User_Status(user.email, "1")}
+                            style={{ color: "#fff" }}
+                          >
+                            Approve
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </td>
                 </tr>
               ))}

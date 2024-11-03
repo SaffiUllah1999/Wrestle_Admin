@@ -15,6 +15,7 @@ import Events from "./pages/Events";
 import Blogs from "./pages/Blogs";
 import Wrestles from "./pages/Wrestles";
 import Hall_of_Fame from "./pages/Hall_of_Fame";
+import EventDetails from "./pages/EventDetails";
 
 function App() {
   const location = useLocation();
@@ -42,6 +43,7 @@ function App() {
         <Route path="/blogs" element={<PrivateRoute element={<Blogs />} />} />
         <Route path="/wrestle" element={<PrivateRoute element={<Wrestles />} />} />
         <Route path="/hallfame" element={<PrivateRoute element={<Hall_of_Fame />} />} />
+        <Route path="/EventDetails" element={<PrivateRoute element={<EventDetails />} />} />
         {/* <Route path="/article" element={<PrivateRoute element={<Article />} />} />
         <Route path="/products" element={<PrivateRoute element={<Products />} />} /> */}
         {/* Add any additional routes here */}

@@ -6,8 +6,7 @@ import { SERVICE_ROUTE } from "../../services/endpoints";
 function DashboardCard07() {
   const [users, setUsers] = useState([]); // State for users
   const [loading, setLoading] = useState(true); // State for loading
-  const commonDataService = new CommonDataService()
-
+  const commonDataService = new CommonDataService();
 
   // const fetchData = async () => {
   //   try {
@@ -20,12 +19,12 @@ function DashboardCard07() {
   //   }
   // };
 
-  const fetchData = async() => {
+  const fetchData = async () => {
     await commonDataService
       .fetchData(SERVICE_ROUTE.GET_ALL_USERS)
       .then((res) => {
-        console.log(res?.data)
-        setUsers(res.data); 
+        console.log(res?.data);
+        setUsers(res.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -43,11 +42,11 @@ function DashboardCard07() {
   //   }
   // };
 
-  const deleteUser = async(id) => {
+  const deleteUser = async (id) => {
     await commonDataService
       .removeCall(SERVICE_ROUTE.DELETE_USER, id)
       .then((res) => {
-        setUsers(res.data); 
+        setUsers(res.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -65,7 +64,9 @@ function DashboardCard07() {
   return (
     <div className="col-span-full xl:col-span-6 bg-white dark:bg-gray-800 shadow-sm rounded-xl">
       <header className="px-5 py-4 border-b border-gray-100 dark:border-gray-700/60">
-        <h2 className="font-semibold text-gray-800 dark:text-gray-100">All Users</h2>
+        <h2 className="font-semibold text-gray-800 dark:text-gray-100">
+          All Users
+        </h2>
       </header>
       <div className="p-3">
         <div className="overflow-x-auto">
@@ -75,9 +76,7 @@ function DashboardCard07() {
                 <th className="p-2">
                   <div className="font-semibold text-left">Email</div>
                 </th>
-                <th className="p-2">
-                  <div className="font-semibold text-center">Score</div>
-                </th>
+
                 <th className="p-2">
                   <div className="font-semibold text-center">Name</div>
                 </th>
@@ -90,20 +89,23 @@ function DashboardCard07() {
               {users.map((user) => (
                 <tr key={user._id}>
                   <td className="p-2">
-                    <div className="text-gray-800 dark:text-gray-100">{user.email}</div>
-                  </td>
-                  <td className="p-2 text-center">
-                    <div className={user.Score > 0 ? "text-green-500" : "text-red-500"}>
-                      {user.Score || 0}
+                    <div className="text-gray-800 dark:text-gray-100">
+                      {user.email}
                     </div>
                   </td>
                   <td className="p-2 text-center">
-                    <div className="text-gray-800 dark:text-gray-100">{user.name || "N/A"}</div>
+                    <div className="text-gray-800 dark:text-gray-100">
+                      {user.name || "N/A"}
+                    </div>
                   </td>
                   <td className="p-2 text-center">
-                    <button onClick={() => deleteUser(user._id)} className="text-red-500">
+                    <button
+                      onClick={() => deleteUser(user._id)}
+                      className="text-red-500"
+                    >
                       Delete
                     </button>
+                  
                   </td>
                 </tr>
               ))}
