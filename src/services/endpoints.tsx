@@ -22,7 +22,10 @@ export const SERVICE_ROUTE = {
 
    UPDATE_EVENT_WRESTLE1:"/adminUpdateWrestler1",
    UPDATE_EVENT_WRESTLE2:"/adminUpdateWrestler2",
-   GET_EVENT_BY_ID:"/getEventByID"
+   GET_EVENT_BY_ID:"/getEventByID",
+
+   UPLOAD_ECOMMER_PRODUCTS:"/uploadProducts",
+   GET_ECOMMER_PRODUCTS:"/getProducts"
 
 
   };

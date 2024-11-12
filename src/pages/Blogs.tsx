@@ -87,7 +87,7 @@ export default function Blogs() {
     <div className="flex h-screen overflow-hidden">
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
-      <div>
+      <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
         <header className="px-5 py-4 border-b border-gray-100 flex justify-between items-center">
           <h2 className="font-semibold">Blogs</h2>
           <div className="flex items-center ml-auto">
