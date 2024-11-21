@@ -65,17 +65,18 @@ export default function News() {
   };
 
   const Del_Call = (id) => {
-    setLoading(true); // Set loading to true
+    setLoading(true); // Start loading
     commonDataService
-      .executeApiCall_2(`/articles/${id}`)
+      .removeCall(SERVICE_ROUTE.DELETE_NEWS, id)
       .then(() => {
-        setDataset((prev) => prev.filter((article) => article._id !== id));
+        //setDataset((prev) => prev.filter((article) => article._id !== id)); // Update dataset after deletion
+        Get_Products();
       })
       .catch((error) => {
         console.log(error);
       })
       .finally(() => {
-        setLoading(false); // Set loading to false after the request
+        setLoading(false); // Stop loading
       });
   };
 

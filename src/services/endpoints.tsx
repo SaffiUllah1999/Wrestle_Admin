@@ -25,7 +25,14 @@ export const SERVICE_ROUTE = {
    GET_EVENT_BY_ID:"/getEventByID",
 
    UPLOAD_ECOMMER_PRODUCTS:"/uploadProducts",
-   GET_ECOMMER_PRODUCTS:"/getProducts"
+   GET_ECOMMER_PRODUCTS:"/getProducts",
+   DELETE_EVENT:"/deleteEvent/",
+
+   DELETE_NEWS:"/deleteNews/",
+   DELETE_BLOGS:"/deleteBlogs/",
+
+   START_BIDDING:"/createBid",
+   GET_BIDDING_BY_NAME:"/getBidbyName/?wrestleName="
 
 
   };

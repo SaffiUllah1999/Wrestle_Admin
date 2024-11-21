@@ -3,7 +3,7 @@ import Sidebar from "../partials/Sidebar";
 import CommonDataService from "../services/commondataservice";
 import { SERVICE_ROUTE } from "../services/endpoints";
 import { IoIosAddCircle, IoMdTrash } from "react-icons/io"; // Import the trash icon
-import { IoChevronForward } from "react-icons/io5";
+import { IoChevronForward, IoTrashOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
 export default function Events() {
@@ -78,9 +78,9 @@ export default function Events() {
   const Del_Call = (id) => {
     setLoading(true); // Start loading
     commonDataService
-      .removeCall(`/articles/`, id) // Call the DELETE endpoint
+      .removeCall(SERVICE_ROUTE.DELETE_EVENT, id)
       .then(() => {
-        setDataset((prev) => prev.filter((article) => article._id !== id)); // Update dataset after deletion
+        //setDataset((prev) => prev.filter((article) => article._id !== id)); // Update dataset after deletion
         Get_Products();
       })
       .catch((error) => {
@@ -196,33 +196,52 @@ export default function Events() {
             </div>
           )}
 
-          <div style={{width:"100%"}}>
+          <div style={{ width: "100%" }}>
             <div>
               <tbody>
                 {dataset?.map((article) => (
                   <div
                     key={article._id}
                     className="bg-white shadow-sm rounded-xl p-3 my-2"
-                    onClick={()=>navigate("/EventDetails", { state: { dataset: article } })}
                   >
+                    {/* Main flex container */}
+                    <div style={{display: "flex",justifyContent:"flex-end", justifyItems:'flex-end',alignItems:"flex-end"}}>
+                      <IoTrashOutline
+                        className="cursor-pointer text-red-600 ml-5" // Styling for the icon
+                        onClick={() => Del_Call(article._id)} // Call delete on click
+                        size={20} // Set the size of the icon
+                      />
+                    </div>
                     <div className="flex justify-between items-center">
-                      <div className="flex-grow">
-                        {/* Allow the text to grow */}
+                      {/* Left content */}
+                      <div
+                        className="flex-grow cursor-pointer"
+                        onClick={() =>
+                          navigate("/EventDetails", {
+                            state: { dataset: article },
+                          })
+                        }
+                      >
                         <div>{"Product id: " + article?._id}</div>
                         <div>{"Name: " + article?.title}</div>
                         <div>{"Description: " + article?.description}</div>
-                        <div>{"Seats : " + article?.seats}</div>
+                        <div>{"Seats: " + article?.seats}</div>
                       </div>
-                      <IoChevronForward
-                        className="cursor-pointer text-red-600 ml-5" // Add margin for spacing
-                        // onClick={() => Del_Call(article?._id)} // Call delete on click
-                       
-                      />
+
+                      {/* Right content */}
+                      <div className="flex items-center">
+                        <IoChevronForward
+                          className="cursor-pointer text-red-600 ml-5" // Add margin for spacing
+                        />
+                      </div>
                     </div>
+
+                    {/* Image below the details */}
                     <img
                       style={{ height: 100, width: 100 }}
                       src={article?.image}
                       alt="Image"
+                      className="mt-3"
                     />
                   </div>
                 ))}

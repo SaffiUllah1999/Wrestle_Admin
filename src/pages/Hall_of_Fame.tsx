@@ -4,8 +4,11 @@ import Product_1 from "../partials/products/Product_1";
 import CommonDataService from "../services/commondataservice";
 import { SERVICE_ROUTE } from "../services/endpoints";
 import { IoIosAddCircle, IoMdClose } from "react-icons/io";
+import { AiOutlineAlignRight, AiOutlineRight } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 export default function Hall_of_Fame() {
+  const navigate = useNavigate();
   const commonDataService = new CommonDataService();
   const [dataset, setDataset] = useState([]);
   const fileInputRef = useRef(null);
@@ -119,12 +122,15 @@ export default function Hall_of_Fame() {
                   }
                   className="border p-2 mb-2 w-full"
                 />
-                   <input
+                <input
                   type="text"
                   placeholder="Enter Success rate"
                   value={newArticle.success_rate}
                   onChange={(e) =>
-                    setNewArticle({ ...newArticle, success_rate: e.target.value })
+                    setNewArticle({
+                      ...newArticle,
+                      success_rate: e.target.value,
+                    })
                   }
                   className="border p-2 mb-2 w-full"
                 />
@@ -172,15 +178,22 @@ export default function Hall_of_Fame() {
                         className="cursor-pointer text-red-600"
                         onClick={() => Del_Call(article._id)} // Call delete on click
                       />
+                      <AiOutlineRight />
                     </div>
-                    <div>{"Product id: " + article?._id}</div>
-                    <div>{"Name: " + article?.name}</div>
-                    <div>{"Weight: " + article?.weight}</div>
-                    <img
-                      style={{ height: 100, width: 100 }}
-                      src={article?.image}
-                      alt="Image"
-                    />
+                    <div onClick={()=> navigate('/Bidding', {
+                            state: { data : {name: article?.name, image : article?.image} },
+                          })}>
+                      <div style={{ paddingTop: "20px" }}>
+                        {"Product id: " + article?._id}
+                      </div>
+                      <div>{"Name: " + article?.name}</div>
+                      <div>{"Weight: " + article?.weight}</div>
+                      <img
+                        style={{ height: 100, width: 100 }}
+                        src={article?.image}
+                        alt="Image"
+                      />
+                    </div>
                   </div>
                 ))}
               </tbody>
