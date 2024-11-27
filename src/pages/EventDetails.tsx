@@ -11,11 +11,12 @@ export default function EventDetails() {
   const [data_set, setDataset] = useState(dataset);
   const commonDataService = new CommonDataService();
 
-  
+  console.log(data_set?.wrestlers)
+
   const Get_Products = () => {
     setLoading(true); // Start loading
     commonDataService
-      .fetchData_2(SERVICE_ROUTE.GET_EVENT_BY_ID,data_set?._id)
+      .fetchData_2(SERVICE_ROUTE.GET_EVENT_BY_ID, data_set?._id)
       .then((res) => {
         setDataset(res?.data);
       })
@@ -28,9 +29,8 @@ export default function EventDetails() {
   };
 
   useEffect(() => {
-    Get_Products()
-  }, [])
-  
+    Get_Products();
+  }, []);
 
   const fileInputRef = useRef(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -75,10 +75,15 @@ export default function EventDetails() {
       });
   };
 
-  const UpdateWrestler1 = (_id, name) => {
+  const UpdateWrestler1 = (_id, name, email, image) => {
     setLoading(true);
     commonDataService
-      .executeApiCall(SERVICE_ROUTE.UPDATE_EVENT_WRESTLE1, { _id, name })
+      .executeApiCall(SERVICE_ROUTE.UPDATE_EVENT_WRESTLE1, {
+        _id,
+        name,
+        email,
+        image,
+      })
       .then((res) => {
         // Assuming you want to add the new article to the dataset
       })
@@ -223,10 +228,10 @@ export default function EventDetails() {
             <p>
               <strong>Venue:</strong> {data_set?.venue}
             </p>
-            <p>
+            {/* <p>
               <strong>Wrestlers:</strong> --{data_set?.wrestle1} VS{" "}
               {data_set?.wrestle2}--
-            </p>
+            </p> */}
             <p>
               <strong>Participants:</strong>
               <ul style={{ marginTop: "10px" }}>
@@ -245,15 +250,17 @@ export default function EventDetails() {
                       <strong>Wrestler Name :</strong> {participant.name}{" "}
                       <strong> Email :</strong> {participant.email}
                     </span>
-                    {data_set?.wrestle1 === participant.name ||
-                    data_set?.wrestle2 === participant.name ? (
+                    {dataset?.wrestlers?.find(c=> c?.name === participant.name)? (
                       <></>
                     ) : (
                       <button
                         onClick={() =>
-                          data_set.wrestle1
-                            ? UpdateWrestler2(data_set?._id, participant?.name)
-                            : UpdateWrestler1(data_set?._id, participant?.name)
+                          UpdateWrestler1(
+                            data_set?._id,
+                            participant?.name,
+                            participant?.email,
+                            participant?.image
+                          )
                         }
                         className="ml-2 bg-green-500 hover:bg-green-700 text-white px-2 py-1 rounded"
                       >

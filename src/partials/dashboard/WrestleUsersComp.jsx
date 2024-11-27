@@ -39,6 +39,7 @@ function WrestleUsersComp() {
       .then((res) => {
         setDataset((prev) => [...prev, res?.data]);
         setModalOpen(false);
+        fetchData();
       })
       .catch((error) => {
         console.log(error);
@@ -57,14 +58,6 @@ function WrestleUsersComp() {
       });
   };
 
-  // const deleteUser = async (id) => {
-  //   try {
-  //     await axiosInstance.delete(`/deleteUser/${id}`); // Use axios instance
-  //     setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id)); // Update state to remove deleted user
-  //   } catch (error) {
-  //     console.error("Error deleting user:", error);
-  //   }
-  // };
 
   const deleteUser = async (id) => {
     await commonDataService
