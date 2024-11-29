@@ -18,6 +18,7 @@ export default function Events() {
     image: "",
     seats: 0,
     venue: "",
+    dateEvent: "", // Add the date field to the state
   });
   const [loading, setLoading] = useState(false); // Loading state
 
@@ -64,6 +65,7 @@ export default function Events() {
           image: "",
           venue: "",
           seats: 0,
+          dateEvent: "", // Reset the date field
         });
         Get_Products(); // Refresh dataset
       })
@@ -80,7 +82,6 @@ export default function Events() {
     commonDataService
       .removeCall(SERVICE_ROUTE.DELETE_EVENT, id)
       .then(() => {
-        //setDataset((prev) => prev.filter((article) => article._id !== id)); // Update dataset after deletion
         Get_Products();
       })
       .catch((error) => {
@@ -113,7 +114,7 @@ export default function Events() {
           {/* Loading Indicator */}
           {loading && (
             <div className="flex justify-center items-center h-full">
-              <p>Loading...</p> {/* You can replace this with a spinner */}
+              <p>Loading...</p>
             </div>
           )}
 
@@ -165,6 +166,22 @@ export default function Events() {
                   }
                   className="border p-2 mb-2 w-full"
                 />
+
+                <p><strong>Date of Event</strong></p>
+                
+                {/* Date Picker */}
+                <input
+                  type="date"
+                  value={newArticle.dateEvent}
+                  onChange={(e) =>
+                    setNewArticle({
+                      ...newArticle,
+                      dateEvent: e.target.value,
+                    })
+                  }
+                  className="border p-2 mb-2 w-full"
+                />
+                
                 <input
                   type="file"
                   ref={fileInputRef}
@@ -205,11 +222,11 @@ export default function Events() {
                     className="bg-white shadow-sm rounded-xl p-3 my-2"
                   >
                     {/* Main flex container */}
-                    <div style={{display: "flex",justifyContent:"flex-end", justifyItems:'flex-end',alignItems:"flex-end"}}>
+                    <div style={{display: "flex", justifyContent:"flex-end", alignItems:"flex-end"}}>
                       <IoTrashOutline
-                        className="cursor-pointer text-red-600 ml-5" // Styling for the icon
-                        onClick={() => Del_Call(article._id)} // Call delete on click
-                        size={20} // Set the size of the icon
+                        className="cursor-pointer text-red-600 ml-5"
+                        onClick={() => Del_Call(article._id)} 
+                        size={20} 
                       />
                     </div>
                     <div className="flex justify-between items-center">
@@ -226,12 +243,14 @@ export default function Events() {
                         <div>{"Name: " + article?.title}</div>
                         <div>{"Description: " + article?.description}</div>
                         <div>{"Seats: " + article?.seats}</div>
+                        {/* Show event date */}
+                        <div>{"Date of Event: " + article?.dateEvent}</div>
                       </div>
 
                       {/* Right content */}
                       <div className="flex items-center">
                         <IoChevronForward
-                          className="cursor-pointer text-red-600 ml-5" // Add margin for spacing
+                          className="cursor-pointer text-red-600 ml-5"
                         />
                       </div>
                     </div>
